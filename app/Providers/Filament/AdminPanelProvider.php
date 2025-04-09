@@ -60,4 +60,9 @@ class AdminPanelProvider extends PanelProvider
                 Authenticate::class,
             ]);
     }
+
+    public function gate(): ?\Closure
+    {
+        return fn($user) => true;
+    }
 }
