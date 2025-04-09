@@ -34,9 +34,10 @@ class ProductResource extends Resource
                     ->columns(2)
                     ->schema([
                         TextInput::make('name')->label('Product Name')->required(),
+                        TextInput::make('selling_price')->label('Selling Price')->numeric()->required(),
                         Select::make('category_id')->relationship('category', 'name'),
-                        TextInput::make('cost_price')->label('Cost')->numeric(),
-                        TextInput::make('selling_price')->label('Selling Price')->numeric(),
+                        // TextInput::make('cost_price')->label('Cost')->numeric(),
+                        Toggle::make('is_box')->label('Box'),
                     ])->columnSpan(2)->columns(2),
                 Section::make('Image')
                     ->collapsible()
@@ -45,7 +46,6 @@ class ProductResource extends Resource
                             ->label('Image Upload')
                             ->directory('uploads')
                             ->preserveFilenames(),
-                        Toggle::make('is_box')->label('Box'),
                     ])->columnSpan(1),
 
             ])->columns(3);
@@ -65,14 +65,9 @@ class ProductResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('category.name')
                     ->sortable(),
-                Tables\Columns\TextColumn::make('cost_price')
-                    ->numeric(decimalPlaces: 2)
-                    ->money('PHP')
-                    ->sortable(),
                 Tables\Columns\TextColumn::make('selling_price')
                     ->numeric(decimalPlaces: 2)
-                    ->money('PHP')
-                    ->sortable(),
+                    ->money('PHP'),
                 TextColumn::make('is_box')
                     ->label('Product Type')
                     ->badge()

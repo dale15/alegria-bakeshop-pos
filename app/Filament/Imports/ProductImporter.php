@@ -14,18 +14,20 @@ class ProductImporter extends Importer
     public static function getColumns(): array
     {
         return [
-            //
+            ImportColumn::make('name'),
+            ImportColumn::make('selling_price'),
         ];
     }
 
     public function resolveRecord(): ?Product
     {
-        // return Product::firstOrNew([
-        //     // Update existing records, matching them by `$this->data['column_name']`
-        //     'email' => $this->data['email'],
-        // ]);
-
-        return new Product();
+        return Product::firstOrNew([
+            'name' => $this->data['name'],
+        ], [
+            'name' => $this->data['name'],
+            'selling_price' => $this->data['selling_price'],
+            'is_box' => 0,
+        ]);
     }
 
     public static function getCompletedNotificationBody(Import $import): string

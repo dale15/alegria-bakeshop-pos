@@ -26,6 +26,8 @@ class ProductIngredientRelationManager extends RelationManager
                     ->required()
                     ->native(false)
                     ->reactive()
+                    ->searchable()
+                    ->preload()
                     ->afterStateUpdated(function ($state, callable $set, callable $get) {
                         $ingredient = Ingredient::find($state);
                         if ($ingredient) {
@@ -58,9 +60,10 @@ class ProductIngredientRelationManager extends RelationManager
                             $ingredient = Ingredient::find($ingredientId);
 
                             if ($ingredient) {
-                                $baseUnit = $ingredient->getBaseUnit();
                                 $price = $ingredient->price;
-                                $set('cost_per_unit', ($price / $baseUnit) * $quantity);
+                                $costPerUnit = $price / $ingredient->quantity_in_stock;
+                                $cost = $costPerUnit * $quantity;
+                                $set('cost_per_unit', $cost);
                             }
                         }
                     }),

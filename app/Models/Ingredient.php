@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Ingredient extends Model
 {
-    protected $fillable = ['name', 'price', 'unit_of_measure', 'description'];
+    protected $fillable = ['name', 'price', 'unit_of_measure', 'quantity_in_stock', 'description'];
 
     public function inventory()
     {
@@ -16,14 +16,5 @@ class Ingredient extends Model
     public function costings()
     {
         return $this->hasMany(Product_ingredient::class);
-    }
-
-    public function getBaseUnit(): float
-    {
-        return match ($this->unit_of_measure) {
-            'grams', 'ml', 'millimeter', 'g' => 1000,
-            'pcs', 'pieces' => 1,
-            default => 1
-        };
     }
 }

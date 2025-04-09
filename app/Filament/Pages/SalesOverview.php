@@ -41,9 +41,16 @@ class SalesOverview extends Page implements HasTable
         return $table
             ->query(Sale::query())
             ->columns([
-                TextColumn::make('id')->label('Sales Id')->sortable(),
-                TextColumn::make('total_amount')->label('Total Amount')->money('PHP'),
-                TextColumn::make('created_at')->label('Sales Date')
+                TextColumn::make('total_amount')
+                    ->label('Total Amount')
+                    ->money('PHP'),
+                TextColumn::make('note')
+                    ->label('Notes')
+                    ->placeholder('No Notes.')
+                    ->limit(20)
+                    ->wrap(),
+                TextColumn::make('created_at')
+                    ->label('Sales Date')
             ])
             ->defaultPaginationPageOption(5)
             ->actions([
