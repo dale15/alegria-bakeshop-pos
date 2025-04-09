@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->foreignId('category_id')->constrained()->noActionOnDelete();
             $table->integer('is_box')->nullable();
-            $table->decimal('cost_price', 10, 2)->default(0.00);
+            $table->decimal('cost_price', 10, 2)->nullable()->default(0.00);
             $table->decimal('selling_price', 10, 2)->default(0.00);
             $table->string('image_url')->nullable();
             $table->timestamps();

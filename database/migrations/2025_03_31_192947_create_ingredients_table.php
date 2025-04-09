@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->decimal('price', 10, 2)->default('0.00');
             $table->string('unit_of_measure')->nullable(); // (e.g., gram, liter, piece)
+            $table->decimal('quantity_in_stock', 10, 2)->nullable()->default('0.00');
             $table->text('description');
             $table->timestamps();
         });

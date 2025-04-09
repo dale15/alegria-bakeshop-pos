@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('product_id')->constrained()->cascadeOnDelete();
             $table->foreignId('ingredient_id')->constrained()->noActionOnDelete();
             $table->decimal('quantity', 10, 2);
+            $table->decimal('cost_per_unit', 10, 2)->nullable();
             $table->timestamps();
         });
     }
